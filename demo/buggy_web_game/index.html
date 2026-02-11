@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Buggy Web Game</title>
+    <style>
+      :root {
+        --bg: #0b1020;
+        --panel: #121a33;
+        --text: #e9eefc;
+        --muted: #9fb0e0;
+        --accent: #44d7b6;
+        --danger: #ff5a6f;
+      }
+      body {
+        margin: 0;
+        background: radial-gradient(800px 400px at 20% 10%, #1a2550, var(--bg));
+        color: var(--text);
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans,
+          sans-serif;
+      }
+      #game-root {
+        max-width: 980px;
+        margin: 0 auto;
+        padding: 24px;
+      }
+      .header {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 16px;
+      }
+      .title {
+        font-weight: 800;
+        letter-spacing: 0.03em;
+      }
+      .state {
+        display: inline-block;
+        padding: 8px 12px;
+        border-radius: 999px;
+        background: rgba(68, 215, 182, 0.12);
+        color: var(--accent);
+        border: 1px solid rgba(68, 215, 182, 0.35);
+        font-weight: 700;
+      }
+      .panel {
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 16px;
+        padding: 18px;
+      }
+      .buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin: 16px 0;
+      }
+      button {
+        cursor: pointer;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        background: rgba(255, 255, 255, 0.06);
+        color: var(--text);
+        padding: 12px 14px;
+        border-radius: 12px;
+        font-weight: 700;
+        min-width: 140px;
+      }
+      button.primary {
+        border-color: rgba(68, 215, 182, 0.55);
+        background: rgba(68, 215, 182, 0.14);
+      }
+      button.danger {
+        border-color: rgba(255, 90, 111, 0.55);
+        background: rgba(255, 90, 111, 0.12);
+        color: #ffd7dc;
+      }
+      .log {
+        margin-top: 14px;
+        padding: 12px;
+        border-radius: 12px;
+        background: rgba(0, 0, 0, 0.25);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        color: var(--muted);
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New",
+          monospace;
+        white-space: pre-wrap;
+        min-height: 140px;
+      }
+      .hint {
+        color: var(--muted);
+        font-size: 14px;
+      }
+      .big {
+        font-size: 44px;
+        font-weight: 900;
+        margin: 0;
+        letter-spacing: 0.04em;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="game-root">
+      <div class="header">
+        <div>
+          <div class="title">STREAM QA SWARM — DEMO GAME</div>
+          <div class="hint">Deterministic states + a deterministic crash path for automation.</div>
+        </div>
+        <div class="state" id="stateLabel">TITLE</div>
+      </div>
+
+      <div class="panel">
+        <p class="big" id="screenTitle">TITLE</p>
+
+        <div class="buttons">
+          <button class="primary" id="startBtn">START</button>
+          <button id="resetBtn">RESET</button>
+          <button class="danger" id="crashBtn">CRASH NOW</button>
+        </div>
+
+        <div class="hint">Crash path: START → BOOST x7 → FIRE (uncaught exception).</div>
+        <div class="buttons">
+          <button id="boostBtn">BOOST</button>
+          <button class="danger" id="fireBtn">FIRE</button>
+          <button id="backBtn">BACK</button>
+        </div>
+
+        <div class="log" id="log"></div>
+      </div>
+    </div>
+
+    <script src="game.js"></script>
+  </body>
+</html>

@@ -1,0 +1,6 @@
+project:
+  name: stream-qa-swarm
+foundry:
+  endpoint: ""
+  deployment: ""
+  api_version: ""
