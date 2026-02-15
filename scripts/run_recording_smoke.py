@@ -43,6 +43,7 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--url", default="")
     parser.add_argument("--headless", action="store_true")
+    parser.add_argument("--seconds", type=int, default=3)
     args = parser.parse_args()
 
     server = None
@@ -52,8 +53,7 @@ def main() -> int:
 
     recorder = SessionRecorder()
     run_id = recorder.new_run_id()
-    vdir = recorder.video_dir(run_id)
-    vdir.mkdir(parents=True, exist_ok=True)
+    context_kwargs = recorder.attach_to_context(run_id)
 
     try:
         with sync_playwright() as pw:
@@ -62,12 +62,12 @@ def main() -> int:
                 "width": DEFAULT_VIEWPORT["width"],
                 "height": DEFAULT_VIEWPORT["height"],
             }
-            context = browser.new_context(viewport=viewport, record_video_dir=str(vdir))
+            context = browser.new_context(viewport=viewport, **context_kwargs)
             page = context.new_page()
             page.goto(url, wait_until="domcontentloaded")
             page.click("#startBtn")
             page.click("#boostBtn")
-            time.sleep(2)
+            time.sleep(max(1, args.seconds))
 
             video_path = recorder.finalize(context, page=page, run_id=run_id)
             if not video_path.exists() or video_path.stat().st_size == 0:
