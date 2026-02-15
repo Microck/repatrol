@@ -9,6 +9,8 @@ def validate_config(config_path: Path) -> None:
     data = json.loads(config_path.read_text(encoding="utf-8"))
     if "project" not in data or not isinstance(data["project"], dict):
         raise ValueError("Missing required object: project")
+    if "name" not in data["project"]:
+        raise ValueError("Missing required key: project.name")
     if "foundry" not in data or not isinstance(data["foundry"], dict):
         raise ValueError("Missing required object: foundry")
 

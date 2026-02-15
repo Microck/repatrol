@@ -3,10 +3,11 @@ from __future__ import annotations
 import argparse
 import json
 import os
-import sys
 import urllib.error
 import urllib.request
 from pathlib import Path
+
+from validate_foundry_config import validate_config
 
 
 REQUIRED_ENV = [
@@ -35,17 +36,30 @@ def main() -> int:
         print(f"Config not found: {cfg_path}")
         return 2
 
-    # Basic shape check (no YAML parsing dependency)
-    data = json.loads(cfg_path.read_text(encoding="utf-8"))
-    if "project" not in data or "foundry" not in data:
-        print("Invalid config JSON: missing project/foundry")
+    try:
+        validate_config(cfg_path)
+    except Exception as exc:
+        print(f"Config validation failed: {exc}")
         return 2
+
+    data = json.loads(cfg_path.read_text(encoding="utf-8"))
 
     missing = _missing_env()
     if missing:
+        foundry = data.get("foundry", {})
         print("Missing Foundry environment variables. Export them in your shell:")
+        print("---")
         for k in missing:
-            print(f'export {k}=""')
+            if k == "FOUNDRY_ENDPOINT":
+                value = foundry.get("endpoint", "")
+            elif k == "FOUNDRY_DEPLOYMENT":
+                value = foundry.get("deployment", "")
+            elif k == "FOUNDRY_API_VERSION":
+                value = foundry.get("api_version", "")
+            else:
+                value = ""
+            print(f'export {k}="{value}"')
+        print("---")
         return 3
 
     endpoint = os.environ["FOUNDRY_ENDPOINT"].rstrip("/")
