@@ -4,8 +4,8 @@
 
 Phase: 5 of 5 (Demo & Submit)
 Plan: 3 of 3 (Phase complete)
-Status: Project complete
-Last activity: 2026-02-15 - Completed 05-03-PLAN.md (docs + demo handoff)
+Status: Project complete (manual video follow-up)
+Last activity: 2026-02-15 - Switched DEMO-03 to human-recorded submission video
 Progress: ████████████████ 16/16 plans complete
 
 ---
@@ -18,7 +18,7 @@ Progress: ████████████████ 16/16 plans complete
 | 2 | Explorer Agent | Complete | 3/3 plans |
 | 3 | Chaos Agent | Complete | 3/3 plans |
 | 4 | Reporting | Complete | 3/3 plans |
-| 5 | Demo & Submit | Complete | 3/3 plans |
+| 5 | Demo & Submit | Complete (manual follow-up) | 3/3 plans |
 
 ---
 
@@ -37,7 +37,7 @@ Progress: ████████████████ 16/16 plans complete
 
 ## Blockers / Concerns
 
-- None blocking project completion.
+- Non-blocking: record final human-narrated demo video (DEMO-03).
 - Optional live integrations remain credential-gated:
   - Foundry live smoke requires `FOUNDRY_*` env vars.
   - GitHub live issue creation/upload requires `GITHUB_TOKEN` + `GITHUB_REPO`.
@@ -48,6 +48,7 @@ Progress: ████████████████ 16/16 plans complete
 
 | Date | Activity |
 |------|----------|
+| 2026-02-15 | Switched DEMO-03 to manual human-recorded video follow-up (removed auto-generated submission artifact) |
 | 2026-02-15 | Replayed and verified Plans 01-01 through 05-03 in full-auto mode |
 | 2026-02-15 | Added missing docs deliverables: `README.md`, `demo/demo_script.md`, `demo/demo_checklist.md` |
 | 2026-02-15 | Generated all per-plan summaries and updated requirements traceability |
@@ -58,7 +59,7 @@ Progress: ████████████████ 16/16 plans complete
 
 1. Optional: run live Foundry smoke once `FOUNDRY_*` secrets are available.
 2. Optional: run live GitHub issue creation once `GITHUB_TOKEN` + `GITHUB_REPO` are set.
-3. Package submission artifacts (`demo/video.mp4`, run summaries, README) for hackathon upload.
+3. Package submission artifacts (human-recorded demo video, run summaries, README) for hackathon upload.
 
 ---
 

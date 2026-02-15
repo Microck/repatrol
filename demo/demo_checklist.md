@@ -4,7 +4,6 @@
 
 - [ ] Python virtualenv active and dependencies installed
 - [ ] Playwright Chromium installed (`python3 -m playwright install chromium`)
-- [ ] `ffmpeg` available on PATH (`ffmpeg -version`)
 - [ ] Port `4173` is free if using `--serve`
 - [ ] Optional GitHub env vars set for live issue creation:
   - [ ] `GITHUB_TOKEN`
@@ -26,13 +25,9 @@ python3 scripts/run_demo.py --serve --mode demo --headless --dry-run-github
   - [ ] `artifacts/bugs/*.json`
   - [ ] `artifacts/runs/<run_id>/summary.json`
   - [ ] `artifacts/runs/<run_id>/issue_body.md`
-- [ ] Generate submission video:
-
-```bash
-python3 scripts/record_demo_video.py --headless --out demo/video.mp4
-```
-
-- [ ] Verify `demo/video.mp4` exists and is non-empty
+- [ ] Record submission video manually (screen recorder + voice narration) using `demo/demo_script.md`
+- [ ] Verify output video is 1:45-2:15 and clearly shows bug discovery + issue draft
+- [ ] Save final artifact to `demo/video.mp4` (or upload externally and store URL in submission notes)
 
 ## Fallback plan (no GitHub token)
 

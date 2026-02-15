@@ -5,7 +5,7 @@ subsystem: docs
 tags: [readme, demo-script, checklist]
 requires:
   - phase: 05-02
-    provides: executable demo and video generation commands
+    provides: executable demo and rehearsal video generation commands
 provides:
   - demo-first README onboarding
   - 2-minute narration script and operator checklist
@@ -72,6 +72,6 @@ Optional GitHub credentials are required only for live issue creation; dry-run r
 
 ## Next Phase Readiness
 
-Project is ready for final submission flow with reproducible commands and artifacts.
+Project is ready for final submission flow with reproducible commands and artifacts (human-recorded demo video remains a manual follow-up).
 
 ## Self-Check: PASSED

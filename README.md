@@ -11,7 +11,6 @@ python3 -m pip install -r requirements.txt
 python3 -m playwright install chromium
 
 python3 scripts/run_demo.py --serve --mode demo --headless --dry-run-github
-python3 scripts/record_demo_video.py --headless --out demo/video.mp4
 ```
 
 What you should see:
@@ -19,7 +18,12 @@ What you should see:
 - A bug report JSON under `artifacts/bugs/`
 - A run summary JSON under `artifacts/runs/<run_id>/summary.json`
 - A rendered issue body under `artifacts/runs/<run_id>/issue_body.md`
-- A demo video at `demo/video.mp4`
+
+For final submission, record a human-narrated demo video by following:
+- `demo/demo_script.md`
+- `demo/demo_checklist.md`
+
+`scripts/record_demo_video.py` is still useful for rehearsal smoke checks, but submission video should be human-made.
 
 ## How It Works
 

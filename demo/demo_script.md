@@ -40,11 +40,5 @@ python3 scripts/run_demo.py --serve --mode demo --headless --dry-run-github
 
 ### 1:45-2:00 - Submission video artifact
 
-- Run:
-
-```bash
-python3 scripts/record_demo_video.py --headless --out demo/video.mp4
-```
-
-- Show `demo/video.mp4` exists and can be played.
+- Show that the run artifacts are complete (`bug_path`, `summary.json`, `issue_body.md`) and confirm these are what the human-recorded submission video narrates.
 - Closing narration: "ReplayRig turns autonomous gameplay into actionable bug reports with evidence in one command."
