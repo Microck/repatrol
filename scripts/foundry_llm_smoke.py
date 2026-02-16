@@ -26,7 +26,7 @@ def main() -> int:
     use_mock = not args.live or args.mock_response
     client = FoundryLLMClient(mock=use_mock)
 
-    text_result = client.text("Summarize how ReplayRig works in one sentence.")
+    text_result = client.text("Summarize how Repatrol works in one sentence.")
     vision_result = client.vision_json(
         prompt="Read this screenshot and return structured game state.",
         image_bytes=TINY_PNG,

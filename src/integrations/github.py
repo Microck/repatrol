@@ -25,7 +25,7 @@ class GitHubIssueClient:
 
     def _require_repo(self) -> str:
         if not self.repo and self.dry_run:
-            return "owner/replayrig-dry-run"
+            return "owner/repatrol-dry-run"
         if not self.repo:
             raise RuntimeError("GITHUB_REPO is required (format: owner/repo)")
         return self.repo

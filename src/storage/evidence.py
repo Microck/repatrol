@@ -46,7 +46,7 @@ class GitHubReleaseEvidenceStore(EvidenceStore):
         tag = f"evidence-{self.run_id}"
         release = self.github.get_or_create_release(
             tag=tag,
-            name=f"ReplayRig Evidence {self.run_id}",
+            name=f"Repatrol Evidence {self.run_id}",
         )
         self._release_cache = release
         return release

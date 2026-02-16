@@ -27,7 +27,7 @@ completed: 2026-02-15
 
 # Phase 5 Plan 3: Demo Documentation Summary
 
-**ReplayRig now ships with demo-first onboarding, a timed narration script, and a repeatable execution checklist.**
+**Repatrol now ships with demo-first onboarding, a timed narration script, and a repeatable execution checklist.**
 
 ## Performance
 

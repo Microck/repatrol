@@ -1,4 +1,4 @@
-# ReplayRig Demo Checklist
+# Repatrol Demo Checklist
 
 ## Pre-demo checks
 

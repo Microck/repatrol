@@ -1,6 +1,6 @@
-# ReplayRig
+# Repatrol
 
-ReplayRig is a multi-agent game QA swarm that plays an intentionally buggy web game, detects failures, and drafts a GitHub issue with evidence. The default demo flow runs fully local and deterministic so you can reproduce results quickly.
+Repatrol is a multi-agent game QA swarm that plays an intentionally buggy web game, detects failures, and drafts a GitHub issue with evidence. The default demo flow runs fully local and deterministic so you can reproduce results quickly.
 
 ## Demo Quickstart
 

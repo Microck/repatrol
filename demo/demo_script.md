@@ -1,4 +1,4 @@
-# ReplayRig 2-minute Demo Script
+# Repatrol 2-minute Demo Script
 
 ## Target Duration
 
@@ -9,7 +9,7 @@
 ### 0:00-0:20 - Setup and intent
 
 - Show the repo root.
-- Narration: "ReplayRig runs a swarm of QA agents against a game, captures a real bug, and drafts a GitHub issue with evidence."
+- Narration: "Repatrol runs a swarm of QA agents against a game, captures a real bug, and drafts a GitHub issue with evidence."
 
 ### 0:20-0:50 - Start full demo run
 
@@ -41,4 +41,4 @@ python3 scripts/run_demo.py --serve --mode demo --headless --dry-run-github
 ### 1:45-2:00 - Submission video artifact
 
 - Show that the run artifacts are complete (`bug_path`, `summary.json`, `issue_body.md`) and confirm these are what the human-recorded submission video narrates.
-- Closing narration: "ReplayRig turns autonomous gameplay into actionable bug reports with evidence in one command."
+- Closing narration: "Repatrol turns autonomous gameplay into actionable bug reports with evidence in one command."
