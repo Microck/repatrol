@@ -16,7 +16,7 @@
 - Run:
 
 ```bash
-python3 scripts/run_demo.py --serve --mode demo --headless --dry-run-github
+npx tsx scripts/run-demo.ts --serve --mode demo --headless --dry-run-github
 ```
 
 - Highlight output fields as they appear:

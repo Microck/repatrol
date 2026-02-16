@@ -2,8 +2,8 @@
 
 ## Pre-demo checks
 
-- [ ] Python virtualenv active and dependencies installed
-- [ ] Playwright Chromium installed (`python3 -m playwright install chromium`)
+- [ ] Node.js dependencies installed (`npm install`)
+- [ ] Playwright Chromium installed (`npx playwright install chromium`)
 - [ ] Port `4173` is free if using `--serve`
 - [ ] Optional GitHub env vars set for live issue creation:
   - [ ] `GITHUB_TOKEN`
@@ -14,7 +14,7 @@
 - [ ] Start demo run:
 
 ```bash
-python3 scripts/run_demo.py --serve --mode demo --headless --dry-run-github
+npx tsx scripts/run-demo.ts --serve --mode demo --headless --dry-run-github
 ```
 
 - [ ] Confirm output contains:

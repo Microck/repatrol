@@ -7,7 +7,7 @@ Visible states used by screenshots: `TITLE`, `PLAY`, and `CRASH`.
 ## Serve locally
 
 ```bash
-python3 scripts/serve_buggy_web_game.py --port 4173
+npx tsx scripts/serve-buggy-web-game.ts --port 4173
 ```
 
 Open: `http://127.0.0.1:4173/`

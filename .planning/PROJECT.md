@@ -55,10 +55,10 @@ A multi-agent game testing system where AI agents autonomously play your game lo
 ## Constraints
 
 - **Timeline**: 5 weeks (Feb 10 - Mar 15, 2026)
-- **Tech Stack**: Python, Microsoft Agent Framework, Azure AI Foundry
-- **Model Access**: GPT-4o with vision via Foundry
-- **Automation**: PyAutoGUI, browser automation
-- **Storage**: Azure Blob Storage (videos/screenshots)
+- **Tech Stack**: TypeScript, Playwright, Node.js
+- **Model Access**: Optional Foundry/OpenAI API hooks from TypeScript runners
+- **Automation**: Playwright browser automation
+- **Storage**: Local artifacts (screenshots/videos/json) with optional cloud export
 - **Integration**: GitHub API for issue creation
 - **Demo**: 2-minute video required
 

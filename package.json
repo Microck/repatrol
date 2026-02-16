@@ -1,0 +1,23 @@
+{
+  "name": "repatrol",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "TypeScript + Playwright multi-agent game QA swarm",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "check": "tsc --noEmit -p tsconfig.json",
+    "demo": "tsx scripts/run-demo.ts --serve --mode demo --headless --dry-run-github",
+    "serve": "tsx scripts/serve-buggy-web-game.ts",
+    "smoke": "tsx scripts/run-smoke.ts --headless",
+    "foundry:smoke": "tsx scripts/foundry-llm-smoke.ts"
+  },
+  "dependencies": {
+    "playwright": "^1.57.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.9.2",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3"
+  }
+}
