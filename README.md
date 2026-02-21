@@ -6,44 +6,7 @@ Repatrol is a TypeScript + Playwright QA runner with a swarm-style workflow.
 
 It plays a deterministic target web game, detects failures, captures evidence (screenshots + video), and drafts GitHub issues with reproduction steps.
 
-<!-- top-readme: begin -->
-## Configuration
-- Environment variables: [`.env.example`](.env.example)
-- Related sections: [GitHub Integration](#github-integration), [Optional: Foundry smoke test](#optional-foundry-smoke-test)
-
-## Development
-- Orientation: [Repo layout](#repo-layout)
-- Scripts: [`package.json`](package.json)
-
-## Testing
-- Smoke run: [Usage](#usage)
-- Optional: [Foundry smoke test](#optional-foundry-smoke-test)
-
-## Support
-
-## Security
-
-## Releases / Changelog
-
-## Roadmap
-<!-- top-readme: end -->
-
-## How it works
-
-1. Serve (or point at) a deterministic target web app
-2. Run an "explorer" pass to record screen/action coverage
-3. Run a deterministic "chaos" path that triggers a known crash
-4. Persist artifacts (screenshots/video/JSON) and draft an issue body
-5. Optionally create a GitHub issue (dry-run by default)
-
-## Features
-
-- Playwright-driven game automation
-- Deterministic crash path for repeatable bug detection
-- Evidence artifacts: JSON, markdown issue body, videos
-- Optional GitHub issue creation (dry-run by default)
-
-## Installation
+## Quickstart
 
 Prereqs:
 - Node.js 20+
@@ -51,11 +14,21 @@ Prereqs:
 ```bash
 npm install
 npx playwright install chromium
+npm run demo
 ```
 
-## Quick Start
+TODO: add what success looks like (which artifacts to inspect).
 
-Run the full demo flow (serves the target game + records video):
+## Installation
+
+```bash
+npm install
+npx playwright install chromium
+```
+
+## Usage
+
+Run the full demo flow (serves target game + records video):
 
 ```bash
 npm run demo
@@ -66,8 +39,6 @@ Serve only the target game:
 ```bash
 npm run serve
 ```
-
-## Usage
 
 Typecheck and build:
 
@@ -82,22 +53,44 @@ Run a fast smoke pass:
 npm run smoke
 ```
 
-Run the demo script directly (useful for flags):
+Run the demo script directly (for flags):
 
 ```bash
 npx tsx scripts/run-demo.ts --serve --mode demo --headless --dry-run-github
 ```
 
-Target a different URL (instead of serving the bundled demo):
+## Configuration
+
+Environment variables:
+- `.env.example`
+
+Target game URL:
 
 ```bash
 TARGET_GAME_URL="https://example.com/" npm run demo
 ```
 
+GitHub integration (optional):
+- Defaults to dry-run issue generation
+- Set to enable real issue creation:
+  - `GITHUB_TOKEN`
+  - `GITHUB_REPO` (e.g. `owner/repo`)
+
+Foundry smoke test (optional):
+
+```bash
+npm run foundry:smoke
+```
+
+It is skipped unless all are set:
+- `FOUNDRY_ENDPOINT`
+- `FOUNDRY_DEPLOYMENT`
+- `FOUNDRY_API_VERSION`
+- `FOUNDRY_API_KEY`
+
 ## Artifacts
 
 Expected output paths:
-
 - `artifacts/bugs/bug-*.json`
 - `artifacts/coverage/<run_id>.json`
 - `artifacts/runs/<run_id>/summary.json`
@@ -105,49 +98,40 @@ Expected output paths:
 - `artifacts/screenshots/<run_id>/*.png`
 - `artifacts/videos/<run_id>/*.webm`
 
-## GitHub Integration
+TODO: add a short note about how to interpret `summary.json` / `bug-*.json`.
 
-Repatrol defaults to dry-run issue generation.
+## How it works
 
-To enable real issue creation, set:
+TODO: add a short flow: serve -> explore -> crash -> artifacts -> issue draft.
 
-- `GITHUB_TOKEN`
-- `GITHUB_REPO` (e.g. `owner/repo`)
+## Development
 
-## Optional: Foundry smoke test
+TODO: add local dev notes (debugging Playwright, Node version manager).
 
-There is a tiny Foundry connectivity smoke test:
+## Testing
 
-```bash
-npm run foundry:smoke
-```
-
-It is skipped unless all of these are set:
-
-- `FOUNDRY_ENDPOINT`
-- `FOUNDRY_DEPLOYMENT`
-- `FOUNDRY_API_VERSION`
-- `FOUNDRY_API_KEY`
-
-See `.env.example` for the full list.
-
-## Demo
-
-- Video: TBD
-- Script and checklist:
-  - `demo/demo_script.md`
-  - `demo/demo_checklist.md`
-
-## Repo layout
-
-- `src/orchestrator.ts`: main flow (explore -> crash -> artifacts -> issue draft)
-- `scripts/run-demo.ts`: demo runner (optionally serves the game)
-- `demo/buggy_web_game/`: deterministic target app
+TODO: define what `npm run smoke` asserts.
 
 ## Contributing
 
 Issues and pull requests are welcome.
 
+## Support
+
+TODO: add Issues/Discussions link.
+
+## Security
+
+TODO: add security policy (or add `SECURITY.md` and link it).
+
 ## License
 
 Apache-2.0 (see `LICENSE`).
+
+## Releases / Changelog
+
+TODO: link to GitHub Releases or add `CHANGELOG.md`.
+
+## Roadmap
+
+TODO: add 3-5 near-term improvements (or link to issues/milestones).
