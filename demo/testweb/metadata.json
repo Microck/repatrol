@@ -1,0 +1,5 @@
+{
+  "name": "SkyBoost Travel",
+  "description": "A high-end flight booking checkout page with a simulated legacy gateway overflow bug.",
+  "requestFramePermissions": []
+}

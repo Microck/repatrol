@@ -1,7 +1,7 @@
 # Repatrol Demo Voiceover (ElevenLabs TTS)
 
 ## Settings
-- **Voice:** Pick a calm, confident male or female voice (e.g. "Adam", "Rachel", or "Antoni")
+- **Voice:** Pick a calm, confident male or female voice (e.g., "Adam", "Rachel", or "Antoni")
 - **Stability:** 0.50
 - **Clarity + Similarity Enhancement:** 0.75
 - **Style:** 0 (neutral — no dramatic flair)
@@ -9,26 +9,26 @@
 
 ## Script
 
-Repatrol. An autonomous swarm of AI agents that visually test your games and web apps, finding bugs so your QA team doesn't have to.
+Repatrol. An autonomous swarm of AI agents that visually test your web apps, finding edge cases so your QA team doesn't have to.
 
-Manual visual testing is slow, expensive, and error-prone. UI glitches and gameplay crashes often slip into production because human testers can't click every button on every release. 
+Manual visual testing is slow, expensive, and error-prone. UI glitches and state crashes often slip into production because human testers can't click every combination of buttons on every release. 
 
 Here's how Repatrol changes the game.
 
-We deploy a swarm of specialized agents. An Explorer Agent systematically navigates the interface using vision models. When it detects an anomaly, a Bug Hunter Agent takes over to verify the issue. 
+We are deploying the swarm against SkyBoost Travel, a React booking application. This app has a hidden, deterministic crash when a user adds too many seat upgrades before confirming their payment. It's an edge case the human QA team missed.
 
-Finally, a Reporter Agent documents the exact steps to reproduce it and automatically files a ticket.
+Watch the live run. The agents launch a headless browser and begin their work.
 
-Let me show you a live run. The agents are launching a headless browser now.
+The Explorer Agent systematically navigates the interface using vision models. It maps out the "Home" and "Booking" states, analyzing the DOM and screenshots in real-time. 
 
-Watch the coverage map. The Explorer Agent is autonomously clicking through the menus—"Start," "Boost," "Fire." It's analyzing screenshots in real-time to understand the state of the application. 
+Simultaneously, the Chaos Agent begins hammering the deterministic crash path, autonomously clicking "Add Seat Upgrade" over and over again.
 
-Suddenly, it triggers an unhandled exception in the UI.
+Once it exceeds the legacy gateway's limit and clicks "Confirm Payment," it triggers a global unhandled exception in React. The UI unmounts completely.
 
 The Bug Hunter confirms the crash. Instantly, the Reporter Agent kicks in. 
 
 It compiles the visual evidence, maps the exact sequence of actions that caused the failure, and drafts a complete Markdown issue file, ready to be pushed directly to GitHub. 
 
-Sixty-six percent functional coverage, one critical bug found, and zero human intervention required. 
+High functional coverage, one critical React state bug discovered, and zero human intervention required. 
 
 Built for the Microsoft AI Dev Days Hackathon twenty twenty-six. Thank you for watching.
