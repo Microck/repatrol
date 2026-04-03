@@ -1,3 +1,4 @@
+import { readFile } from "node:fs/promises";
 import path from "node:path";
 
 import { chromium, type Page } from "playwright";
@@ -275,6 +276,11 @@ export async function runOrchestration(options: RunOptions): Promise<RunSummary>
 
     const videoPath = video ? await video.path().catch(() => undefined) : undefined;
 
+    // Read coverage payload once for both crash and non-crash paths
+    const coveragePayload = JSON.parse(
+      await readFile(path.join(paths.coverageDir, `${runId}.json`), "utf-8")
+    ) as CoverageSummary;
+
     if (crashDetected) {
       actionHistory.push(`Observe fatal application crash or unhandled state`);
       console.log(`[Bug Hunter] CRITICAL: Unhandled exception detected in UI.`);
@@ -302,9 +308,6 @@ export async function runOrchestration(options: RunOptions): Promise<RunSummary>
       const bugPath = path.join(paths.bugDir, `${bugId}.json`);
       await writeJson(bugPath, bugReport);
 
-      const coveragePayload = JSON.parse(
-        await (await import("node:fs/promises")).readFile(path.join(paths.coverageDir, `${runId}.json`), "utf-8")
-      ) as CoverageSummary;
       const issueBody = renderIssueBody(bugReport, coveragePayload);
       issueBodyPath = path.join(paths.runDir, "issue_body.md");
       await writeText(issueBodyPath, issueBody);
@@ -336,10 +339,6 @@ export async function runOrchestration(options: RunOptions): Promise<RunSummary>
       await writeJson(summaryPath, summary);
       return summary;
     }
-
-    const coveragePayload = JSON.parse(
-      await (await import("node:fs/promises")).readFile(path.join(paths.coverageDir, `${runId}.json`), "utf-8")
-    ) as CoverageSummary;
 
     const summaryPath = path.join(paths.runDir, "summary.json");
     const summary: RunSummary = {
