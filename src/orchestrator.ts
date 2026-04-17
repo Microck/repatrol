@@ -6,11 +6,6 @@ import { ensureDir, newRunId, nowIso, writeJson, writeText } from "./fs-utils.js
 import { createIssue } from "./github.js";
 import type { BugReport, CoverageSummary, RunOptions, RunSummary } from "./types.js";
 
-interface ExplorerAction {
-  label: string;
-  selector: string;
-}
-
 interface RuntimePaths {
   runDir: string;
   screenshotDir: string;
@@ -96,6 +91,14 @@ async function ensurePaths(root: string, runId: string): Promise<RuntimePaths> {
     bugDir,
     coverageDir
   };
+}
+
+async function readCoverageJson(coverageDir: string, runId: string): Promise<CoverageSummary> {
+  const raw = await (await import("node:fs/promises")).readFile(
+    path.join(coverageDir, `${runId}.json`),
+    "utf-8"
+  );
+  return JSON.parse(raw) as CoverageSummary;
 }
 
 async function runExplorer(
@@ -302,9 +305,7 @@ export async function runOrchestration(options: RunOptions): Promise<RunSummary>
       const bugPath = path.join(paths.bugDir, `${bugId}.json`);
       await writeJson(bugPath, bugReport);
 
-      const coveragePayload = JSON.parse(
-        await (await import("node:fs/promises")).readFile(path.join(paths.coverageDir, `${runId}.json`), "utf-8")
-      ) as CoverageSummary;
+      const coveragePayload = await readCoverageJson(paths.coverageDir, runId);
       const issueBody = renderIssueBody(bugReport, coveragePayload);
       issueBodyPath = path.join(paths.runDir, "issue_body.md");
       await writeText(issueBodyPath, issueBody);
@@ -337,9 +338,7 @@ export async function runOrchestration(options: RunOptions): Promise<RunSummary>
       return summary;
     }
 
-    const coveragePayload = JSON.parse(
-      await (await import("node:fs/promises")).readFile(path.join(paths.coverageDir, `${runId}.json`), "utf-8")
-    ) as CoverageSummary;
+    const coveragePayload = await readCoverageJson(paths.coverageDir, runId);
 
     const summaryPath = path.join(paths.runDir, "summary.json");
     const summary: RunSummary = {

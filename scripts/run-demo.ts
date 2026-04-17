@@ -73,7 +73,7 @@ async function main(): Promise<number> {
       mode: args.mode,
       url: targetUrl,
       headless: args.headless,
-      dryRunGithub: args.dryRunGithub || !Boolean(process.env.GITHUB_TOKEN),
+      dryRunGithub: args.dryRunGithub || !process.env.GITHUB_TOKEN,
       recordVideo: true,
       explorerSteps: args.mode === "demo" ? 6 : 20,
       chaosDurationSeconds: args.mode === "demo" ? 7 : 15,
