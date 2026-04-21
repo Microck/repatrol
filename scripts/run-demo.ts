@@ -4,14 +4,21 @@ import { runOrchestration } from "../src/orchestrator.js";
 import type { Mode } from "../src/types.js";
 import { startDemoServer } from "../src/server.js";
 
+/** Parsed CLI arguments for the demo run script. */
 interface Args {
+  /** Run mode: quick demo or extended soak test. */
   mode: Mode;
+  /** Whether to start a local demo server. */
   serve: boolean;
+  /** Port for the demo server. */
   port: number;
+  /** Run Chromium in headless mode. */
   headless: boolean;
+  /** Skip actual GitHub issue creation. */
   dryRunGithub: boolean;
 }
 
+/** Parse command-line arguments into a typed Args object. */
 function parseArgs(argv: string[]): Args {
   const args: Args = {
     mode: "demo",

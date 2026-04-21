@@ -6,19 +6,39 @@ import { ensureDir, newRunId, nowIso, writeJson, writeText } from "./fs-utils.js
 import { createIssue } from "./github.js";
 import type { BugReport, CoverageSummary, RunOptions, RunSummary } from "./types.js";
 
+/** A clickable UI element discovered during exploration. */
 interface ExplorerAction {
+  /** Human-readable label for logging (e.g. `#startBtn` or `'Submit'`). */
   label: string;
+  /** CSS selector used to locate the element. */
   selector: string;
 }
 
+/** Resolved filesystem paths used during a single orchestration run. */
 interface RuntimePaths {
+  /** Directory for all run-specific artifacts. */
   runDir: string;
+  /** Directory for screenshot captures. */
   screenshotDir: string;
+  /** Directory for video recordings. */
   videoDir: string;
+  /** Directory for bug report JSON files. */
   bugDir: string;
+  /** Directory for coverage map JSON files. */
   coverageDir: string;
 }
 
+/**
+ * Read the current application state from the page.
+ *
+ * Tries three strategies in order:
+ * 1. Read text content from `#stateLabel`
+ * 2. Detect crash keywords in the page body
+ * 3. Use the first `h1` or page title as a fallback
+ *
+ * @param page - The Playwright page to inspect.
+ * @returns The detected state string, uppercased (e.g. `"CRASH"`, `"UNKNOWN"`).
+ */
 async function readState(page: Page): Promise<string> {
   try {
     const state = await page.locator("#stateLabel").textContent({ timeout: 500 });
@@ -47,6 +67,13 @@ async function readState(page: Page): Promise<string> {
   return "UNKNOWN";
 }
 
+/**
+ * Render a Markdown issue body combining the bug report and coverage context.
+ *
+ * @param bug - The detected bug report.
+ * @param coverage - The coverage summary from the explorer phase.
+ * @returns A formatted Markdown string suitable for a GitHub issue body.
+ */
 function renderIssueBody(bug: BugReport, coverage: CoverageSummary): string {
   const lines = [
     "## Repatrol automated bug report",
@@ -74,6 +101,15 @@ function renderIssueBody(bug: BugReport, coverage: CoverageSummary): string {
   return `${lines.join("\n")}\n`;
 }
 
+/**
+ * Create the runtime directory structure for a new orchestration run.
+ *
+ * Ensures directories exist for: run artifacts, screenshots, videos, bugs, and coverage.
+ *
+ * @param root - The artifacts root directory.
+ * @param runId - The unique run identifier.
+ * @returns Resolved paths for each artifact subdirectory.
+ */
 async function ensurePaths(root: string, runId: string): Promise<RuntimePaths> {
   const runDir = path.join(root, "runs", runId);
   const screenshotDir = path.join(root, "screenshots", runId);
@@ -98,6 +134,16 @@ async function ensurePaths(root: string, runId: string): Promise<RuntimePaths> {
   };
 }
 
+/**
+ * Run the explorer agent: systematically click buttons on the page,
+ * record observed states and actions, and build a coverage map.
+ *
+ * @param page - The Playwright page to explore.
+ * @param runId - The current run ID for labeling artifacts.
+ * @param screenshotDir - Directory to save exploration screenshots.
+ * @param maxSteps - Maximum number of button clicks to attempt.
+ * @returns A coverage summary with all observed states, actions, and timestamps.
+ */
 async function runExplorer(
   page: Page,
   runId: string,
@@ -167,6 +213,17 @@ async function runExplorer(
   };
 }
 
+/**
+ * Run the full Repatrol orchestration pipeline.
+ *
+ * Spawns a Chromium browser, launches the explorer agent to map the target
+ * application's states, then runs the chaos agent to stress-test it via
+ * rapid button clicking. If a crash or unhandled exception is detected,
+ * compiles a bug report and optionally files a GitHub issue.
+ *
+ * @param options - Configuration for this run (mode, URL, flags, etc.).
+ * @returns A summary of the run including coverage, bug status, and issue URL.
+ */
 export async function runOrchestration(options: RunOptions): Promise<RunSummary> {
   const runId = newRunId();
   const paths = await ensurePaths(options.artifactsRoot, runId);

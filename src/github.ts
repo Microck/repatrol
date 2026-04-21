@@ -1,10 +1,22 @@
+/** Parameters for creating a GitHub issue via the REST API. */
 export interface IssueCreateRequest {
+  /** Repository in "owner/repo" format. */
   repo: string;
+  /** Issue title. */
   title: string;
+  /** Issue body in Markdown. */
   body: string;
+  /** GitHub personal access token with repo scope. */
   token: string;
 }
 
+/**
+ * Create a GitHub issue on the specified repository.
+ *
+ * @param request - The issue creation parameters.
+ * @returns The HTML URL of the newly created issue.
+ * @throws Error if the API request fails or the response is missing the issue URL.
+ */
 export async function createIssue(request: IssueCreateRequest): Promise<string> {
   const response = await fetch(`https://api.github.com/repos/${request.repo}/issues`, {
     method: "POST",
